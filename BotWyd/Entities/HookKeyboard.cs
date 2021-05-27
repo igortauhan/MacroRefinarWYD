@@ -1,25 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BotWyd.Entities
 {
     class HookKeyboard
     {
-        private static int[] _coordenadas = new int[2];
-        private static int[] _coordenadasSlot = new int[2];
-
         private static Macro _macro = new Macro();
 
         private const int WH_KEYBOARD_LL = 13;
         private const int WM_KEYDOWN = 0x0100;
         private static LowLevelKeyboardProc _proc = HookCallback;
         private static IntPtr _hookID = IntPtr.Zero;
+
+        public static int[] CoordenadasItem { get; set; }
+        public static int[] CoordenadasSlot{ get; set; }
 
         public HookKeyboard()
         {
@@ -46,7 +42,7 @@ namespace BotWyd.Entities
                 {
                     try
                     {
-                        _macro.Refinar(_coordenadas[0], _coordenadas[1], _coordenadasSlot[0], _coordenadasSlot[1]);
+                        _macro.Refinar(CoordenadasItem[0], CoordenadasItem[1], CoordenadasSlot[0], CoordenadasSlot[1]);
                     }
                     catch (Exception error)
                     {
@@ -54,14 +50,14 @@ namespace BotWyd.Entities
                     }
                 }
 
-                if (vkCode == 123)
+                if (vkCode == 36)
                 {
-                    _coordenadas = _macro.GetCoordenadas();
+                    CoordenadasItem = _macro.GetCoordenadas();
                 }
 
-                if (vkCode == 121)
+                if (vkCode == 35)
                 {
-                    _coordenadasSlot = _macro.GetCoordenadas();
+                    CoordenadasSlot = _macro.GetCoordenadas();
                 }
 
                 if (vkCode == 34)

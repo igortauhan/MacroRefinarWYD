@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using WindowsInput;
-using WindowsInput.Native;
 
 namespace BotWyd.Entities
 {
@@ -12,7 +12,7 @@ namespace BotWyd.Entities
 
         public int[] GetCoordenadas()
         {
-            Point posicaoMouse = new Point();
+            Point posicaoMouse = Cursor.Position;
 
             int[] coordenadas = new int[2];
             coordenadas[0] = posicaoMouse.X;
@@ -23,11 +23,16 @@ namespace BotWyd.Entities
 
         public void Refinar(int coordenadaX, int coordenadaY, int coordenadaXslot, int coordenadaYslot)
         {
-            _macro.Mouse.MoveMouseTo(coordenadaXslot, coordenadaYslot);
+            SetCursorPos(coordenadaX, coordenadaY);
             _macro.Mouse.LeftButtonClick();
 
-            _macro.Mouse.MoveMouseTo(coordenadaX, coordenadaY);
+            SetCursorPos(coordenadaXslot, coordenadaYslot);
             _macro.Mouse.LeftButtonClick();
         }
+
+        [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetCursorPos(int x, int y);
+
     }
 }
