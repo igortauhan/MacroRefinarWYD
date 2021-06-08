@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 using WindowsInput;
 
@@ -21,13 +22,14 @@ namespace BotWyd.Entities
             return coordenadas;
         }
 
-        public void Refinar(int coordenadaX, int coordenadaY, int coordenadaXslot, int coordenadaYslot)
+        public void Refinar(int coordenadaX, int coordenadaY, int coordenadaXslot, int coordenadaYslot, int segundos)
         {
             SetCursorPos(coordenadaX, coordenadaY);
             _macro.Mouse.LeftButtonClick();
 
             SetCursorPos(coordenadaXslot, coordenadaYslot);
             _macro.Mouse.LeftButtonClick();
+            Thread.Sleep(segundos * 1000);
         }
 
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]

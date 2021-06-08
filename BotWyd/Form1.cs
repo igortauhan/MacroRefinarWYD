@@ -14,7 +14,8 @@ namespace BotWyd
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _hook = new HookKeyboard();
+            int segundos = int.Parse(textBox1.Text);
+            _hook = new HookKeyboard(segundos);
         }
 
         private void button2_Click(object sender, EventArgs e)

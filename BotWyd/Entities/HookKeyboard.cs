@@ -16,9 +16,11 @@ namespace BotWyd.Entities
 
         public static int[] CoordenadasItem { get; set; }
         public static int[] CoordenadasSlot{ get; set; }
+        public static int Segundos { get; set; }
 
-        public HookKeyboard()
+        public HookKeyboard(int segundos)
         {
+            Segundos = segundos;
             _hookID = SetHook(_proc);
         }
 
@@ -42,7 +44,7 @@ namespace BotWyd.Entities
                 {
                     try
                     {
-                        _macro.Refinar(CoordenadasItem[0], CoordenadasItem[1], CoordenadasSlot[0], CoordenadasSlot[1]);
+                        _macro.Refinar(CoordenadasItem[0], CoordenadasItem[1], CoordenadasSlot[0], CoordenadasSlot[1], Segundos);
                     }
                     catch (Exception error)
                     {
