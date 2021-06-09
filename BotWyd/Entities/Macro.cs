@@ -26,6 +26,7 @@ namespace BotWyd.Entities
         {
             SetCursorPos(coordenadaX, coordenadaY);
             _macro.Mouse.LeftButtonClick();
+            Thread.Sleep(segundos * 1000);
 
             SetCursorPos(coordenadaXslot, coordenadaYslot);
             _macro.Mouse.LeftButtonClick();
