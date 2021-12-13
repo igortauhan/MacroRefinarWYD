@@ -22,15 +22,15 @@ namespace BotWyd.Entities
             return coordenadas;
         }
 
-        public void Refinar(int coordenadaX, int coordenadaY, int coordenadaXslot, int coordenadaYslot, int segundos)
+        public void Refinar(int coordenadaX, int coordenadaY, int coordenadaXslot, int coordenadaYslot, int milisegundos)
         {
             SetCursorPos(coordenadaX, coordenadaY);
             _macro.Mouse.LeftButtonClick();
-            Thread.Sleep(segundos * 1000);
+            Thread.Sleep(milisegundos * 1);
 
             SetCursorPos(coordenadaXslot, coordenadaYslot);
             _macro.Mouse.LeftButtonClick();
-            Thread.Sleep(segundos * 1000);
+            Thread.Sleep(milisegundos * 1);
         }
 
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]

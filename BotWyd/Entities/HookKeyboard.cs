@@ -16,21 +16,19 @@ namespace BotWyd.Entities
 
         public static int[] CoordenadasItem { get; set; }
         public static int[] CoordenadasSlot{ get; set; }
-        public static int Segundos { get; set; }
+        public static int Milisegundos { get; set; }
 
-        public HookKeyboard(int segundos)
+        public HookKeyboard(int milisegundos)
         {
-            Segundos = segundos;
+            Milisegundos = milisegundos;
             _hookID = SetHook(_proc);
         }
 
         private static IntPtr SetHook(LowLevelKeyboardProc proc)
         {
-            using (Process curProcess = Process.GetCurrentProcess())
-            using (ProcessModule curModule = curProcess.MainModule)
-            {
-                return SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
-            }
+            using Process curProcess = Process.GetCurrentProcess();
+            using ProcessModule curModule = curProcess.MainModule;
+            return SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
         }
 
         private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
@@ -44,7 +42,7 @@ namespace BotWyd.Entities
                 {
                     try
                     {
-                        _macro.Refinar(CoordenadasItem[0], CoordenadasItem[1], CoordenadasSlot[0], CoordenadasSlot[1], Segundos);
+                        _macro.Refinar(CoordenadasItem[0], CoordenadasItem[1], CoordenadasSlot[0], CoordenadasSlot[1], Milisegundos);
                     }
                     catch (Exception error)
                     {

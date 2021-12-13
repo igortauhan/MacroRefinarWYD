@@ -23,7 +23,12 @@ namespace BotWyd
             MessageBox.Show("Para gravar as coordenadas de onde você deixar a PL na mochila, aperte HOME.\n" +
                 "Para gravar as coordenadas do item que você quer refinar, aperte END\n" +
                 "Para rodar o macro, aperte PgUp (primeiro grave as coordenadas)\n" +
-                "SAIA DO PROGRAMA APERTANDO PgDn");
+                "SAIA DO PROGRAMA APERTANDO PgDn\n");
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
