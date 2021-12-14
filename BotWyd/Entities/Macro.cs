@@ -22,14 +22,29 @@ namespace BotWyd.Entities
             return coordenadas;
         }
 
-        public void Refinar(int coordenadaX, int coordenadaY, int coordenadaXslot, int coordenadaYslot, int milisegundos)
+        public void Refinar(int coordenadaX, int coordenadaY, int coordenadaXslot, int coordenadaYslot, int milisegundos, bool rightClick)
         {
             SetCursorPos(coordenadaX, coordenadaY);
-            _macro.Mouse.LeftButtonClick();
+            if (rightClick)
+            {
+                _macro.Mouse.RightButtonClick();
+            }
+            else
+            {
+                _macro.Mouse.LeftButtonClick();
+            }
             Thread.Sleep(milisegundos * 1);
 
             SetCursorPos(coordenadaXslot, coordenadaYslot);
-            _macro.Mouse.LeftButtonClick();
+            if (rightClick)
+            {
+                _macro.Mouse.RightButtonClick();
+            }
+            else
+            {
+                _macro.Mouse.LeftButtonClick();
+            }
+ 
             Thread.Sleep(milisegundos * 1);
         }
 

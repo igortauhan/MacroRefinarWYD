@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BotWyd.Entities
@@ -8,6 +10,7 @@ namespace BotWyd.Entities
     class HookKeyboard
     {
         private static Macro _macro = new Macro();
+        private static bool _disposed = true;
 
         private const int WH_KEYBOARD_LL = 13;
         private const int WM_KEYDOWN = 0x0100;
@@ -15,13 +18,30 @@ namespace BotWyd.Entities
         private static IntPtr _hookID = IntPtr.Zero;
 
         public static int[] CoordenadasItem { get; set; }
-        public static int[] CoordenadasSlot{ get; set; }
+        public static int[] CoordenadasSlot { get; set; }
         public static int Milisegundos { get; set; }
+        public static bool RightClick { get; set; }
 
-        public HookKeyboard(int milisegundos)
+        public HookKeyboard(int milisegundos, bool rightclick)
         {
             Milisegundos = milisegundos;
+            RightClick = rightclick;
             _hookID = SetHook(_proc);
+        }
+
+        private static void StartMacro()
+        {
+            while (_disposed == false)
+            {
+                try
+                {
+                    _macro.Refinar(CoordenadasItem[0], CoordenadasItem[1], CoordenadasSlot[0], CoordenadasSlot[1], Milisegundos, RightClick);
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine("Ocorreu um erro: " + error.ToString());
+                }
+            }
         }
 
         private static IntPtr SetHook(LowLevelKeyboardProc proc)
@@ -37,17 +57,13 @@ namespace BotWyd.Entities
         {
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
+                Thread bot = new Thread(() => StartMacro());
+                bot.Start();
+
                 int vkCode = Marshal.ReadInt32(lParam);
                 if (vkCode == 33)
                 {
-                    try
-                    {
-                        _macro.Refinar(CoordenadasItem[0], CoordenadasItem[1], CoordenadasSlot[0], CoordenadasSlot[1], Milisegundos);
-                    }
-                    catch (Exception error)
-                    {
-                        Console.WriteLine("Ocorreu um erro: " + error.ToString());
-                    }
+                    _disposed = !_disposed;
                 }
 
                 if (vkCode == 36)
