@@ -7,11 +7,11 @@ using WindowsInput;
 
 namespace BotWyd.Entities
 {
-    class Macro
+    static class Macro
     {
-        private InputSimulator _macro = new InputSimulator();
+        private static InputSimulator _macro = new InputSimulator();
 
-        public int[] GetCoordenadas()
+        public static int[] GetCoordenadas()
         {
             Point posicaoMouse = Cursor.Position;
 
@@ -22,7 +22,7 @@ namespace BotWyd.Entities
             return coordenadas;
         }
 
-        public void Refinar(int coordenadaX, int coordenadaY, int coordenadaXslot, int coordenadaYslot, int milisegundos, bool rightClick)
+        public static void Refinar(int coordenadaX, int coordenadaY, int coordenadaXslot, int coordenadaYslot, int milisegundos, bool rightClick)
         {
             SetCursorPos(coordenadaX, coordenadaY);
             if (rightClick)
@@ -51,6 +51,5 @@ namespace BotWyd.Entities
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetCursorPos(int x, int y);
-
     }
 }

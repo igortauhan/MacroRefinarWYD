@@ -9,7 +9,6 @@ namespace BotWyd.Entities
 {
     class HookKeyboard
     {
-        private static Macro _macro = new Macro();
         private static bool _disposed = true;
 
         private const int WH_KEYBOARD_LL = 13;
@@ -35,7 +34,7 @@ namespace BotWyd.Entities
             {
                 try
                 {
-                    _macro.Refinar(CoordenadasItem[0], CoordenadasItem[1], CoordenadasSlot[0], CoordenadasSlot[1], Milisegundos, RightClick);
+                    Macro.Refinar(CoordenadasItem[0], CoordenadasItem[1], CoordenadasSlot[0], CoordenadasSlot[1], Milisegundos, RightClick);
                 }
                 catch (Exception error)
                 {
@@ -68,12 +67,12 @@ namespace BotWyd.Entities
 
                 if (vkCode == 36)
                 {
-                    CoordenadasItem = _macro.GetCoordenadas();
+                    CoordenadasItem = Macro.GetCoordenadas();
                 }
 
                 if (vkCode == 35)
                 {
-                    CoordenadasSlot = _macro.GetCoordenadas();
+                    CoordenadasSlot = Macro.GetCoordenadas();
                 }
 
                 if (vkCode == 34)

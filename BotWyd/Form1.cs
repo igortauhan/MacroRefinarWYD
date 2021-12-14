@@ -7,7 +7,7 @@ namespace BotWyd
     public partial class Form1 : Form
     {
         private HookKeyboard _hook;
-        private bool _rightClick = false;
+        private bool _rightClick;
         public Form1()
         {
             InitializeComponent();
@@ -15,6 +15,8 @@ namespace BotWyd
 
         private void button1_Click(object sender, EventArgs e)
         {
+            _rightClick = false;
+
             int segundos = int.Parse(textBox1.Text);
             if (checkBox1.Checked)
             {
